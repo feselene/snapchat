@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios'; // Import Axios for API calls
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!email.includes('@')) {
       Alert.alert('Invalid Email', 'Please enter a valid email address.');
       return;
@@ -29,9 +30,28 @@ const SignupScreen = () => {
       return;
     }
 
-    // Call your API for signup logic here
-    Alert.alert('Success', 'Account created successfully!');
-    navigation.navigate('LoginScreen'); // Navigate to login after signup
+    try {
+      // Call your backend API
+      const response = await axios.post('http://localhost:5002/api/signup', {
+        email,
+        username,
+        password,
+      });
+
+      if (response.status === 201) {
+        Alert.alert('Success', 'Account created successfully!');
+        navigation.navigate('LoginScreen'); // Navigate to login after signup
+      }
+    } catch (error) {
+      console.error(error);
+
+      // Handle errors
+      if (error.response && error.response.status === 400) {
+        Alert.alert('Error', error.response.data.error || 'Something went wrong.');
+      } else {
+        Alert.alert('Error', 'Could not connect to the server. Please try again later.');
+      }
+    }
   };
 
   return (
