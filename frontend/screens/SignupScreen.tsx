@@ -32,7 +32,7 @@ const SignupScreen = () => {
 
     try {
       // Call your backend API
-      const response = await axios.post('http://localhost:5002/api/signup', {
+      const response = await axios.post('http://localhost:5000/api/auth/signup', {
         email,
         username,
         password,
