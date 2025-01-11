@@ -16,7 +16,13 @@ const client = new Client({
   ssl: { rejectUnauthorized: false },
 });
 
-client.connect().then(() => console.log('Connected to PostgreSQL')).catch(console.error);
+client
+  .connect()
+  .then(() => console.log('Connected to PostgreSQL'))
+  .catch((error) => {
+    console.error('Failed to connect to PostgreSQL:', error.message);
+    console.error(error.stack);
+  });
 
 app.post('/api/auth/signup', async (req, res) => {
   const { email, username, password } = req.body;
