@@ -1,40 +1,95 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
-
-  const navigateToAnotherScreen = () => {
-    navigation.navigate('CafeScreen'); // Replace 'AnotherScreen' with your target screen name
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the Home Screen!</Text>
-      <Text style={styles.subtitle}>This is the main hub of your app.</Text>
-      <Button title="Go to Another Screen" onPress={navigateToAnotherScreen} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      {/* Top Navigation */}
+      <View style={styles.topNav}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Text style={styles.iconText}>👤</Text> {/* Profile icon placeholder */}
+        </TouchableOpacity>
+        <Text style={styles.snapText}>Snapchat</Text>
+        <TouchableOpacity style={styles.iconButton}>
+          <Text style={styles.iconText}>💬</Text> {/* Chat icon placeholder */}
+        </TouchableOpacity>
+      </View>
+
+      {/* Main Camera View */}
+      <View style={styles.cameraView}>
+        <Text style={styles.cameraText}>Camera View</Text>
+      </View>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Text style={styles.iconText}>🗺️</Text> {/* Map icon placeholder */}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.snapButton}>
+          <View style={styles.snapCircle} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconButton}>
+          <Text style={styles.iconText}>📚</Text> {/* Stories icon placeholder */}
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000', // Black background for camera view
+  },
+  topNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black for navigation background
+  },
+  iconButton: {
+    padding: 10,
+  },
+  iconText: {
+    fontSize: 20,
+    color: '#fff', // White icons
+  },
+  snapText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  cameraView: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#333', // Placeholder color for camera
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
+  cameraText: {
+    color: '#fff',
     fontSize: 16,
-    marginBottom: 20,
-    textAlign: 'center',
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 40,
+    paddingVertical: 15,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  snapButton: {
+    width: 70,
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  snapCircle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#fff', // White snap button
   },
 });
 
